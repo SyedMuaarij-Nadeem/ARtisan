@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0B0F19;
+  --color-accent: #00E5FF;
+  --color-glass: rgba(255, 255, 255, 0.05);
+  --color-glass-border: rgba(0, 229, 255, 0.3);
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Custom subtle scrollbar for cards */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 229, 255, 0.3) transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 229, 255, 0.3);
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 229, 255, 0.6);
+  }
+}
+
+@layer base {
+  @font-face {
+    font-family: 'FastHand';
+    src: url('/fonts/fastHand.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: white;
+    font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  @keyframes wave {
+    0% { transform: scaleY(0.9) translateY(20px); }
+    50% { transform: scaleY(1.1) translateY(0); }
+    100% { transform: scaleY(0.9) translateY(20px); }
+  }
+  @keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    100% { transform: translateY(-20px) rotate(10deg); }
+  }
+  @keyframes scalePulse {
+    0% { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(1.2); opacity: 1; }
+  }
+}
+
+@layer components {
+  .font-brand {
+    font-family: 'FastHand', cursive;
+  }
+
+  .glass-card {
+    @apply bg-glass backdrop-blur-md border border-glass-border rounded-xl shadow-[0_0_15px_rgba(0,229,255,0.1)];
+  }
+  
+  .input-field {
+    @apply w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:border-accent focus:shadow-[0_0_10px_rgba(0,229,255,0.3)] transition-all duration-300;
+  }
+
+  .btn-primary {
+    @apply w-full bg-accent text-gray-900 font-bold rounded-lg px-4 py-3 hover:bg-[#00cce6] hover:shadow-[0_0_20px_rgba(0,229,255,0.5)] transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98];
+  }
+  
+  .btn-secondary {
+    @apply w-full bg-white/10 text-white font-medium rounded-lg px-4 py-3 hover:bg-white/20 transition-all duration-300 flex items-center justify-center gap-2;
+  }
+}
