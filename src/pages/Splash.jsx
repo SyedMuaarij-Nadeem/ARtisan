@@ -11,7 +11,7 @@ export default function Splash() {
   useEffect(() => {
     const tl = gsap.timeline({
       onComplete: () => {
-        setTimeout(() => navigate('/login'), 500);
+        setTimeout(() => navigate('/dashboard'), 500);
       }
     });
 

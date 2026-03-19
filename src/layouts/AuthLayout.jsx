@@ -43,7 +43,7 @@ export default function AuthLayout() {
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden" style={{ perspective: '2000px' }}>
       <AnimatedBackground />
       
-      <div className="relative w-full max-w-md min-h-[500px] flex items-center justify-center">
+      <div className="relative w-full max-w-md flex items-center justify-center">
         <AnimatePresence initial={false} mode="popLayout" custom={direction}>
           <motion.div
             key={location.pathname}

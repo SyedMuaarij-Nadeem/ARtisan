@@ -15,16 +15,16 @@ export default function ForgotPassword() {
 
   return (
     <div className="glass-card w-full p-6 sm:p-8 transition-all duration-500 flex flex-col justify-center">
-      
+
       {!isSubmitted ? (
-        <motion.div 
+        <motion.div
           key="form"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <div className="text-center mb-6 sm:mb-8">
-            <h2 className="text-3xl sm:text-4xl font-brand mb-2">Reset Password</h2>
+            <h2 className="text-2xl font-bold mb-1 tracking-tight">Reset Password</h2>
             <p className="text-white/60 text-sm sm:text-base">Enter your email to receive a reset link</p>
           </div>
 
@@ -32,12 +32,12 @@ export default function ForgotPassword() {
             <div className="space-y-2">
               <Input type="email" placeholder="Email Address" icon={Mail} required />
             </div>
-            
+
             <Button type="submit">Send Reset Link</Button>
           </form>
         </motion.div>
       ) : (
-        <motion.div 
+        <motion.div
           key="success"
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}

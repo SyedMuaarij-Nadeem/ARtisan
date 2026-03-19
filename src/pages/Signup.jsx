@@ -4,11 +4,13 @@ import { User, Mail, Lock } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
+import { RoleSelector } from '../components/RoleSelector';
 
 export default function Signup() {
   const navigate = useNavigate();
   const { loginWithGoogle, signup } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [role, setRole] = useState('User');
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -34,44 +36,46 @@ export default function Signup() {
   };
 
   return (
-    <div className="glass-card w-full p-5 sm:p-6">
-      <div className="text-center mb-4 sm:mb-5">
-        <h2 className="text-2xl sm:text-3xl font-brand mb-1">Create Account</h2>
-        <p className="text-white/60 text-sm">Join ARtisan today</p>
+    <div className="glass-card w-full p-4 sm:p-5 font-poppins">
+      <div className="text-center mb-3">
+        <h2 className="text-xl sm:text-2xl font-bold mb-1 tracking-tight">Create Account</h2>
+        <p className="text-white/60 text-xs sm:text-sm font-light">Join ARtisan today</p>
       </div>
 
-      <form className="space-y-3 sm:space-y-4" onSubmit={handleSignup}>
-        <div className="space-y-1">
+      <RoleSelector selectedRole={role} onChange={setRole} />
+
+      <form className="space-y-1.5" onSubmit={handleSignup}>
+        <div className="space-y-1 font-light">
           <Input type="text" placeholder="Full Name" icon={User} />
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1 font-light">
           <Input type="email" placeholder="Email Address" icon={Mail} />
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1 font-light">
           <Input type="password" placeholder="Password" icon={Lock} />
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1 font-light">
           <Input type="password" placeholder="Confirm Password" icon={Lock} />
         </div>
-        
+
         <div className="pt-1">
-          <Button type="submit" className="py-2.5" disabled={isLoading}>
+          <Button type="submit" className="py-2" disabled={isLoading}>
             {isLoading ? 'Creating...' : 'Create Account'}
           </Button>
         </div>
 
-        <div className="relative flex items-center py-2 sm:py-3">
+        <div className="relative flex items-center py-0.5 sm:py-1">
           <div className="grow border-t border-white/10"></div>
-          <span className="shrink-0 mx-4 text-white/40 text-sm">OR</span>
+          <span className="shrink-0 mx-4 text-white/40 text-xs sm:text-sm font-light">OR</span>
           <div className="grow border-t border-white/10"></div>
         </div>
 
-        <Button type="button" variant="secondary" className="py-2.5" onClick={handleGoogleSignIn} disabled={isLoading}>
+        <Button type="button" variant="secondary" className="py-2" onClick={handleGoogleSignIn} disabled={isLoading}>
           {isLoading ? (
             <span>Connecting...</span>
           ) : (
             <>
-              <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
                 <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
                 <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
@@ -83,7 +87,7 @@ export default function Signup() {
         </Button>
       </form>
 
-      <p className="mt-4 sm:mt-5 text-center text-xs sm:text-sm text-white/60">
+      <p className="mt-2 sm:mt-3 text-center text-xs sm:text-sm text-white/60 font-light">
         Already have an account?{' '}
         <Link to="/login" state={{ direction: 'flip-left' }} className="text-accent hover:text-white transition-colors font-medium">
           Log in
