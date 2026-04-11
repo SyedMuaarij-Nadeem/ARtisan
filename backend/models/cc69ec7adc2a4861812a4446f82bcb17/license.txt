@@ -1,0 +1,11 @@
+Model Information:
+* title:	Montenero Castle
+* source:	https://sketchfab.com/3d-models/montenero-castle-cc69ec7adc2a4861812a4446f82bcb17
+* author:	iwalk (https://sketchfab.com/iwalk)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Montenero Castle" (https://sketchfab.com/3d-models/montenero-castle-cc69ec7adc2a4861812a4446f82bcb17) by iwalk (https://sketchfab.com/iwalk) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

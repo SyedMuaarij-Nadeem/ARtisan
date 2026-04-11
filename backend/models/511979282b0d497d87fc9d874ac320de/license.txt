@@ -1,0 +1,11 @@
+Model Information:
+* title:	soviet furniture
+* source:	https://sketchfab.com/3d-models/soviet-furniture-511979282b0d497d87fc9d874ac320de
+* author:	sanya.dany.dolinskiy (https://sketchfab.com/sanya.dany.dolinskiy)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "soviet furniture" (https://sketchfab.com/3d-models/soviet-furniture-511979282b0d497d87fc9d874ac320de) by sanya.dany.dolinskiy (https://sketchfab.com/sanya.dany.dolinskiy) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

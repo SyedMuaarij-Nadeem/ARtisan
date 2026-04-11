@@ -62,8 +62,8 @@ export default function Splash() {
             }}
           />
         </div>
-        <h1 ref={textRef} className="text-4xl md:text-6xl font-brand tracking-widest text-white drop-shadow-[0_0_10px_rgba(0,229,255,0.5)]">
-          AR<span className="text-accent">tisan</span>
+        <h1 ref={textRef} className="text-4xl text-accent md:text-6xl font-brand tracking-widest drop-shadow-[0_0_10px_rgba(0,229,255,0.5)]">
+          AR<span className="text-white">tisan</span>
         </h1>
       </div>
 

@@ -77,7 +77,7 @@ export default function Landing() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, ease: "easeOut" }}
-                      className="text-transparent bg-clip-text bg-linear-to-r from-accent to-blue-500 drop-shadow-[0_0_15px_rgba(0,229,255,0.4)] font-brand inline-block mt-2"
+                      className="text-transparent bg-clip-text bg-linear-to-r from-accent to-blue-500 drop-shadow-[0_0_15px_rgba(0,229,255,0.4)] font-brand inline-block mt-2 pl-2"
                     >
                       ARtisan
                     </motion.span>
@@ -120,7 +120,7 @@ export default function Landing() {
               <p className="text-base text-white/60 mb-8 leading-relaxed max-w-lg font-light">
                 Browse thousands of high-quality, game-ready 3D assets optimized for AR. One-click integration for your workspace.
               </p>
-              <Link to="/signup">
+              <Link to="/assets">
                 <Button className="py-3! px-6! text-lg hover:shadow-[0_0_20px_rgba(0,229,255,0.2)] font-semibold">Browse Library</Button>
               </Link>
             </div>
@@ -171,7 +171,7 @@ export default function Landing() {
         <footer className="w-full border-t border-white/5 bg-black/40 backdrop-blur-md py-12">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8 font-poppins">
             <div>
-              <span className="text-3xl tracking-wider mb-2 block font-poppins font-bold">AR<span className="text-accent">tisan</span></span>
+              <span className="text-3xl text-accent tracking-wider mb-2 block font-poppins font-bold">AR<span className="text-white">tisan</span></span>
               <p className="text-sm text-white/30 italic font-light">Sculpting the digital frontier.</p>
             </div>
             <div className="flex flex-col items-center md:items-end gap-4">

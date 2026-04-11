@@ -1,0 +1,11 @@
+Model Information:
+* title:	The Wayfarer
+* source:	https://sketchfab.com/3d-models/the-wayfarer-8dca282cc3f3439eadb8ea2712d5871e
+* author:	Ycar (https://sketchfab.com/Ycar)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "The Wayfarer" (https://sketchfab.com/3d-models/the-wayfarer-8dca282cc3f3439eadb8ea2712d5871e) by Ycar (https://sketchfab.com/Ycar) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

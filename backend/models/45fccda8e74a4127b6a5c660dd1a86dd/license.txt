@@ -1,0 +1,11 @@
+Model Information:
+* title:	Old leather bag
+* source:	https://sketchfab.com/3d-models/old-leather-bag-45fccda8e74a4127b6a5c660dd1a86dd
+* author:	irs1182 (https://sketchfab.com/irs1182)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Old leather bag" (https://sketchfab.com/3d-models/old-leather-bag-45fccda8e74a4127b6a5c660dd1a86dd) by irs1182 (https://sketchfab.com/irs1182) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

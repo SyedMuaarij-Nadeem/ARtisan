@@ -1,0 +1,11 @@
+Model Information:
+* title:	Dressing Table
+* source:	https://sketchfab.com/3d-models/dressing-table-7fc3374cf42a46639c858466c73e0fcf
+* author:	eucocker (https://sketchfab.com/eucocker)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Dressing Table" (https://sketchfab.com/3d-models/dressing-table-7fc3374cf42a46639c858466c73e0fcf) by eucocker (https://sketchfab.com/eucocker) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

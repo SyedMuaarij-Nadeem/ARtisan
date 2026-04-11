@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
 import Landing from './pages/Landing';
+import AssetLibrary from './pages/AssetLibrary';
 import AuthLayout from './layouts/AuthLayout';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           </Route>
 
           <Route path="/dashboard" element={<Landing />} />
+          <Route path="/assets" element={<AssetLibrary />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
