@@ -1,76 +1,93 @@
-import { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import { motion } from 'framer-motion';
 
-export default function Splash() {
-  const navigate = useNavigate();
+// Yahan logo import karein (Vite isko khud resolve karega)
+import logoImg from '../assets/artisan-logo.png';
+
+export default function Splash({ onComplete }) {
   const logoRef = useRef(null);
   const textRef = useRef(null);
   const containerRef = useRef(null);
+  const imgRef = useRef(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const tl = gsap.timeline({
-      onComplete: () => {
-        setTimeout(() => navigate('/dashboard'), 500);
-      }
-    });
+    // Cache check: if image is already loaded, trigger animation
+    if (imgRef.current && imgRef.current.complete) {
+      setIsLoaded(true);
+    }
+  }, []);
 
-    gsap.set(logoRef.current, { scale: 0.5, opacity: 0, rotationY: -180 });
-    gsap.set(textRef.current, { y: 20, opacity: 0 });
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    const tl = gsap.timeline();
+
+    gsap.set(logoRef.current, { scale: 0.9, opacity: 0, y: 15, filter: "blur(10px)" });
+    gsap.set(textRef.current, { opacity: 0, y: 10 });
 
     tl.to(logoRef.current, {
-      duration: 1.5,
+      duration: 1.8,
       scale: 1,
       opacity: 1,
-      rotationY: 0,
-      ease: "power3.out",
+      y: 0,
+      filter: "blur(0px)",
+      ease: "expo.out",
     })
-      .to(logoRef.current, {
-        duration: 1,
-        boxShadow: "0 0 40px rgba(0, 229, 255, 0.6)",
-        repeat: 1,
-        yoyo: true,
-        ease: "sine.inOut"
-      }, "-=0.5")
-      .to(textRef.current, {
-        duration: 0.8,
-        y: 0,
-        opacity: 1,
-        ease: "power2.out"
-      }, "-=1.0")
-      .to(containerRef.current, {
-        duration: 0.8,
-        opacity: 0,
-        delay: 0.5,
-        ease: "power2.inOut"
-      });
+    .to(textRef.current, {
+      duration: 1.2,
+      opacity: 1,
+      y: 0,
+      ease: "power2.out"
+    }, "-=0.8")
+    .to({}, { duration: 2 }) // Hold for 2s to let user see branding
+    .add(() => {
+      if (onComplete) onComplete();
+    });
 
     return () => tl.kill();
-  }, [navigate]);
+  }, [onComplete, isLoaded]);
 
   return (
-    <div ref={containerRef} className="fixed inset-0 flex flex-col items-center justify-center bg-background z-50 overflow-hidden">
+    <motion.div 
+      ref={containerRef}
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0, scale: 1.05 }}
+      transition={{ duration: 1.2, ease: "easeInOut" }}
+      className="fixed inset-0 flex flex-col items-center justify-center bg-[#050505] z-[100] overflow-hidden"
+    >
       <div className="relative z-10 flex flex-col items-center">
-        <div
-          ref={logoRef}
-          className="w-32 h-32 md:w-48 md:h-48 mb-8 relative rounded-2xl flex items-center justify-center bg-glass border border-glass-border"
+        
+        {/* Logo Container */}
+        <div 
+          ref={logoRef} 
+          className="w-40 h-40 md:w-64 md:h-64 mb-6"
+          style={{ opacity: 0 }} // Start hidden via CSS
         >
-          <img src="/images/artisan-logo.png" alt="ARtisan Logo" className="w-[80%] h-[80%] object-contain drop-shadow-[0_0_15px_rgba(0,229,255,0.8)]"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300E5FF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2L2 22h20L12 2z'/%3E%3C/svg%3E";
+          <img 
+            ref={imgRef}
+            src={logoImg} 
+            alt="ARtisan Logo" 
+            className="w-full h-full object-contain"
+            onLoad={() => setIsLoaded(true)}
+            onError={() => {
+              console.error("Logo file still missing in src/assets/");
+              setIsLoaded(true); 
             }}
           />
         </div>
-        <h1 ref={textRef} className="text-4xl md:text-6xl font-brand tracking-widest text-white drop-shadow-[0_0_10px_rgba(0,229,255,0.5)]">
-          AR<span className="text-accent">tisan</span>
-        </h1>
-      </div>
 
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-accent/10 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[120px]"></div>
+        {/* Text Styling */}
+        <div ref={textRef} className="text-center" style={{ opacity: 0 }}>
+          <h1 className="text-4xl md:text-5xl font-light tracking-[0.2em] text-white">
+            AR<span className="text-[#8B5E3C] font-semibold">TISAN</span>
+          </h1>
+          <p className="mt-3 text-[9px] uppercase tracking-[0.6em] text-gray-400 font-medium opacity-60">
+            Digital Craftsmanship
+          </p>
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

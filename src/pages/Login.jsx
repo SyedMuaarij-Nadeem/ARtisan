@@ -1,96 +1,176 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { Mail, Lock } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
-import { Input } from '../components/Input';
-import { Button } from '../components/Button';
-import { RoleSelector } from '../components/RoleSelector';
+import { Mail, Lock, Chrome, ArrowRight, AlertCircle, ArrowLeft, Sparkles } from 'lucide-react';
+import bgImg from '../assets/login (3).jpg'; 
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { login, loginWithGoogle, user } = useAuth();
   const navigate = useNavigate();
-  const { loginWithGoogle, login } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
-  const [role, setRole] = useState('User');
 
-  const handleLogin = async (e) => {
+  if (user) {
+    return (
+      <div className="relative min-h-screen w-full flex items-center justify-center p-4 font-inter overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img src={bgImg} className="w-full h-full object-cover brightness-[0.45]" alt="bg" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent" />
+        </div>
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="relative z-10 w-full max-w-sm sm:max-w-md backdrop-blur-3xl bg-[#1A1A1A]/80 border border-white/5 p-8 sm:p-12 text-center shadow-2xl"
+        >
+          <Sparkles className="w-10 h-10 sm:w-12 sm:h-12 text-[#8B5E3C] mx-auto mb-6 sm:mb-8" />
+          <h2 className="text-xl sm:text-2xl font-light tracking-widest uppercase mb-4 text-white">Already Logged In</h2>
+          <p className="text-xs text-white/60 uppercase tracking-widest leading-relaxed mb-8 sm:mb-10">
+            You are currently authenticated with ARtisan Studio. Ready to continue?
+          </p>
+          <button 
+            onClick={() => navigate('/dashboard')}
+            className="w-full bg-[#8B5E3C] text-white py-4 sm:py-5 text-[10px] uppercase tracking-[0.4em] font-black hover:bg-white hover:text-black transition-all duration-700 shadow-2xl"
+          >
+            Enter Studio Dashboard
+          </button>
+        </motion.div>
+      </div>
+    );
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    setIsLoading(true);
     try {
-      await login('test@artisan.com', 'password');
-      navigate('/dashboard');
-    } finally {
-      setIsLoading(false);
+      setError('');
+      setLoading(true);
+      await login(email, password);
+      navigate('/landing');
+    } catch (err) {
+      if (err.code === 'auth/invalid-credential') {
+        setError('Invalid credentials. Please check your email and password.');
+      } else {
+        setError(err.message.replace('Firebase: ', ''));
+      }
+      console.error(err);
     }
-  };
+    setLoading(false);
+  }
 
-  const handleGoogleSignIn = async () => {
-    setIsLoading(true);
+  async function handleGoogleLogin() {
     try {
+      setError('');
       await loginWithGoogle();
-      navigate('/dashboard');
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
+      navigate('/landing');
+    } catch (err) {
+      setError('Google sign-in failed: ' + err.message.replace('Firebase: ', ''));
+      console.error(err);
     }
-  };
+  }
 
   return (
-    <div className="glass-card w-full p-4 sm:p-5 font-poppins">
-      <div className="text-center mb-3">
-        <h2 className="text-xl sm:text-2xl font-bold mb-1 tracking-tight">Welcome Back</h2>
-        <p className="text-white/60 text-xs sm:text-sm font-light">Log in to continue to ARtisan</p>
+    <div className="relative min-h-screen w-full flex items-center justify-center p-3 sm:p-4 md:p-6 font-inter overflow-hidden">
+      
+      {/* Immersive Background */}
+      <div className="absolute inset-0 z-0">
+        <img src={bgImg} className="w-full h-full object-cover scale-105 brightness-[0.45] contrast-[1.1]" alt="Studio Background" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#1A1A1A] via-[#1A1A1A]/60 to-transparent" />
       </div>
 
-      <RoleSelector selectedRole={role} onChange={setRole} />
+      {/* Back to Home Button */}
+      <Link 
+        to="/landing" 
+        className="absolute top-4 sm:top-8 left-4 sm:left-8 z-20 flex items-center gap-2 sm:gap-3 text-[11px] sm:text-[12px] uppercase tracking-[0.3em] text-white/50 hover:text-white transition-all group"
+      >
+        <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 group-hover:-translate-x-1 transition-transform" />
+        Back to Home
+      </Link>
 
-      <form className="space-y-2 sm:space-y-3" onSubmit={handleLogin}>
-        <div className="space-y-1 font-light">
-          <Input type="email" placeholder="Email Address" icon={Mail} />
-        </div>
-        <div className="space-y-1 font-light">
-          <Input type="password" placeholder="Password" icon={Lock} />
-        </div>
-
-        <div className="flex justify-end mt-0.5 font-light">
-          <Link to="/forgot-password" state={{ direction: 'swipe-left' }} className="text-[10px] sm:text-xs text-accent hover:text-white transition-colors">
-            Forgot Password?
+      <motion.div 
+        initial={{ opacity: 0, y: 30, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative z-10 w-full max-w-sm sm:max-w-md lg:max-w-lg backdrop-blur-3xl bg-[#1A1A1A]/80 border border-white/5 p-6 sm:p-10 md:p-16 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)] overflow-y-auto custom-scrollbar my-16 sm:my-8"
+      >
+        <div className="text-center mb-8 sm:mb-12">
+          <Link to="/" className="text-2xl sm:text-3xl tracking-[0.4em] sm:tracking-[0.6em] uppercase font-light mb-4 block text-white">
+            AR<span className="italic font-serif text-[#8B5E3C]">tisan</span>
           </Link>
+          <h2 className="text-lg sm:text-xl font-light text-white/90 tracking-widest uppercase mt-5 sm:mt-8">Studio Access</h2>
+          <div className="w-12 h-[1px] bg-[#8B5E3C] mx-auto mt-4 opacity-50" />
         </div>
 
-        <Button type="submit" className="py-2 mt-1" disabled={isLoading}>
-          {isLoading ? 'Logging in...' : 'Login'}
-        </Button>
+        {error && (
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
+            className="mb-6 sm:mb-8 p-3 sm:p-4 bg-red-500/10 border border-red-500/20 flex items-center gap-3 text-red-400 text-[10px] sm:text-[11px] uppercase tracking-wider"
+          >
+            <AlertCircle className="w-4 h-4 shrink-0" />
+            {error}
+          </motion.div>
+        )}
 
-        <div className="relative flex items-center py-1 sm:py-2">
-          <div className="grow border-t border-white/10"></div>
-          <span className="shrink-0 mx-4 text-white/40 text-xs sm:text-sm font-light">OR</span>
-          <div className="grow border-t border-white/10"></div>
+        <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+          <div className="space-y-2">
+            <label className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/40 ml-1">Identity / Email</label>
+            <div className="relative group">
+              <Mail className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20 group-focus-within:text-[#8B5E3C] transition-colors" />
+              <input 
+                type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-transparent border-b border-white/10 px-7 sm:px-8 py-3 sm:py-4 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#8B5E3C] transition-all duration-500"
+                placeholder="name@studio.com"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex justify-between items-center px-1">
+              <label className="text-[10px] uppercase tracking-[0.3em] font-bold text-white/40">Password</label>
+              <Link to="/forgot-password" size="sm" className="text-[9px] uppercase tracking-widest font-bold text-[#8B5E3C] hover:text-white transition-colors">
+                Forgot password?
+              </Link>
+            </div>
+            <div className="relative group">
+              <Lock className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20 group-focus-within:text-[#8B5E3C] transition-colors" />
+              <input 
+                type="password" required value={password} onChange={(e) => setPassword(e.target.value)}
+                className="w-full bg-transparent border-b border-white/10 px-7 sm:px-8 py-3 sm:py-4 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#8B5E3C] transition-all duration-500"
+                placeholder="••••••••"
+              />
+            </div>
+          </div>
+
+          <button 
+            disabled={loading} type="submit"
+            className="w-full bg-[#8B5E3C] text-white py-4 sm:py-5 text-[10px] uppercase tracking-[0.4em] font-black hover:bg-white hover:text-black transition-all duration-700 shadow-2xl flex items-center justify-center gap-4 group mt-6 sm:mt-10"
+          >
+            {loading ? 'Logging in...' : 'Initialize Access'}
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-500" />
+          </button>
+        </form>
+
+        <div className="relative my-10 sm:my-14">
+          <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/5"></div></div>
+          <div className="relative flex justify-center text-[9px] uppercase tracking-[0.5em] bg-transparent text-white/20">
+            <span className="bg-[#1A1A1A] px-4">Direct Link</span>
+          </div>
         </div>
 
-        <Button type="button" variant="secondary" className="py-2" onClick={handleGoogleSignIn} disabled={isLoading}>
-          {isLoading ? (
-            <span>Connecting...</span>
-          ) : (
-            <>
-              <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
-                <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
-              </svg>
-              Continue with Google
-            </>
-          )}
-        </Button>
-      </form>
+        <button 
+          onClick={handleGoogleLogin}
+          className="w-full border border-white/10 bg-white/5 py-4 sm:py-5 text-[10px] uppercase tracking-[0.4em] font-bold text-white/80 hover:bg-white hover:text-black transition-all duration-700 flex items-center justify-center gap-4"
+        >
+          <Chrome className="w-4 h-4" />
+          Google Authentication
+        </button>
 
-      <p className="mt-2 sm:mt-3 text-center text-xs sm:text-sm text-white/60 font-light">
-        Don't have an account?{' '}
-        <Link to="/signup" state={{ direction: 'flip-right' }} className="text-accent hover:text-white transition-colors font-medium">
-          Sign up
-        </Link>
-      </p>
+        <p className="text-center mt-8 sm:mt-12 text-white/30 text-[10px] uppercase tracking-[0.3em]">
+          New to the studio? {' '}
+          <Link to="/signup" className="text-[#8B5E3C] font-bold hover:text-white transition-colors ml-2 underline underline-offset-4">Register</Link>
+        </p>
+      </motion.div>
     </div>
   );
 }
