@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 
 backend/models/*
+
+
+.env
+backend/.env
